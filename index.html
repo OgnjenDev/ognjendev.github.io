@@ -1,0 +1,3378 @@
+<!DOCTYPE html><html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matematika učenje</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #4a90e2;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+    }
+    .container {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .razred, .oblast {
+      background-color: white;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: background-color 0.3s ease;
+    }
+    .razred:hover, .oblast:hover {
+      background-color: #e6f0ff;
+    }
+    .opis {
+      background-color: #ffffff;
+      padding: 15px;
+      margin-top: 15px;
+      border-left: 5px solid #4a90e2;
+      border-radius: 5px;
+    }
+    #nazad {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 15px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Učenje matematike</h1>
+  </header>
+  <div class="container">
+    <div id="razredi"></div>
+    <div id="oblasti" style="display:none;"></div>
+    <div id="opis" class="opis" style="display:none;"></div>
+    <button id="nazad" style="display:none;" onclick="vratiNazad()">Nazad</button>
+  </div>  <script>
+    const podaci = {
+      "1. razred": ["Sabiranje", "Oduzimanje", "Brojevi do 20", "Poređenje brojeva"],
+      "2. razred": ["Množenje", "Deljenje", "Brojevi do 100", "Geometrijski oblici"],
+      "3. razred": ["Razlomci", "Merenje dužine", "Vreme", "Novac"],
+      "4. razred": ["Jednačine", "Deljivost brojeva", "Zapremina", "Simetrija"],
+      "5. razred": ["Decimalni brojevi", "Operacije sa razlomcima", "Koordinatni sistem", "Trouglovi"],
+      "6. razred": ["Procenti", "Negativni brojevi", "Skupovi", "Deljivost"],
+      "7. razred": ["Pitagorina teorema", "Nejednačine", "Razlomci izrazi", "Polinomi"],
+      "8. razred": ["Funkcije", "Kvadratne jednačine", "Statistika", "Verovatnoća"],
+      "1. srednja": ["Linearne jednačine", "Sistem jednačina", "Grafici funkcija", "Logika"],
+      "2. srednja": ["Kvadratne funkcije", "Polinomi višeg stepena", "Trigonometrija", "Matematička indukcija"]
+    };
+
+    const primeri = {
+      "Sabiranje": { opis: `Сабирање, у општом случају, је комбиновање било које две количине или величине користећи оператор плус.[1] У свакодневној употреби, међутим, сабирање се обично односи на комбиновање бројева (реалних, целих, природних итд.), у циљу проналажења њихове заједничке количине или величине. Сабирање у овом смислу је један од најпростијих нумеричких задатака` },
+      "Oduzimanje": { opis: `Одузимање је једна од четири основне аритметичке операције, и представља инверзију сабирању. Обележава се знаком минус („–“). У релацији
+
+x - y = z (чита се „икс минус ипсилон“ или „икс мање ипсилон“ ` },
+      "Brojevi do 20": { opis: `Od 0 do 20 znamenaka deset ima. Svaki broj do 20 jednu ili dvije znamenke u sebi skriva. Doznaj kako se koji zove i nauči brojeve nove. I na novcu brojevi pišu. Oni nam kažu koliko što vrijedi, ali zapamti dobro: razumno troši i pametno štedi` },
+      "Poređenje brojeva": { opis: `Poređenje brojeva znači utvrđivanje koji broj je veći, manji ili jednak. npr. 5 > 2 kaže se "pet je veći od dva"` },
+      "Množenje": { opis: `Множење је бинарна операција у математици. Записује се као a · b или a × b. Операнди a и b се називају чиниоци (фактори), а резултат множења производ.[1]
+
+Ако је један операнд природан број, онда множење представља скраћени запис сабирања. Нпр, ако је n ∈ ℕ, онда је
+
+a
+⋅
+n
+=
+a
++
+⋯
++
+a
+⏟
+n
+.
+У алгебри се ознака за множење подразумева и може се прескочити, па се 3 · a · b може записати и као 3 a b[2]
+
+На пример, 4 помножено са 3, често написано као 
+3
+×
+4 и изговорено као „3 пута 4”, може се израчунати додавањем 3 копије од 4 заједно:
+
+3
+×
+4
+=
+4
++
+4
++
+4
+=
+12
+Овде су 3 (множилац) и 4 (множеник) чиниоци, а 12 је производ.
+
+Једно од главних својстава множења је комутативно својство, које у овом случају наводи да сабирање 3 копије од 4 даје исти резултат као додавање 4 копије од 3` },
+      "Deljenje": { opis: `Дељење је једна од четири основне операције аритметике, начина на који се бројеви комбинују да би се створили нови бројеви. Остале операције су сабирање, одузимање и множење.
+
+На основном нивоу, дељење два природна броја је, између осталих могућих интерпретација, поступак израчунавања колико пута се један број садржи у другом.[1]‍:7 Овај број пута није увек цео број (број који се могу добити коришћењем осталих аритметичких операција над природним бројевима).
+
+Дељењем са остатком или Еуклидским дељењем два природна броја добија се целобројни количник, то јест колико пута је други број у потпуности садржан у првом броју, и остатак, који је део првог броја који остаје, када је у током израчунавања количника не може се доделити даљи пуни део величине другог броја.
+
+Модификација дељења којом се добија само један резултат, доводи до проширења природних бројева на рационалне бројеве (бројеве који се могу добити коришћењем аритметике на природним бројевима) или реалне бројеве. У овим проширеним бројевним системима дељење је инверзна операција множења, то јест a = c / b значи a × b = c, све док b није нула. Ако је b = 0, онда је то дељење са нулом, што није дефинисано.[а][4]‍:246
+
+Оба облика поделе појављују се у разним алгебарским структурама, различитим начинима дефинисања математичке структуре. Они у којима је дефинисана Еуклидска подела (са остатком) називају се Еуклидским доменима и укључују полиномске прстенове у једној неодређеној променљивој (који дефинишу множење и сабирање преко формула са једном променљивом). Они у којима је дефинисано дељење (са једним резултатом) на све ненулте елементе називају се поља и прстенови дељења. У прстену се елементи помоћу којих је дељење увек могуће називају јединицама (на пример, 1 и -1 у прстену целих бројева). Друга генерализација поделе на алгебарске структуре је количничка група, у којој је резултат „дељења“ група, а не број` },
+      "Brojevi do 100": { opis: `Svaki broj do 100 su 1,2,3.. i dolje do 100` },
+      "Geometrijski oblici": { opis: `Geometrijski oblici su figure koje proučavamo u geometriji, grani matematike koja se bavi oblicima, veličinama i prostorom.
+
+Postoje 2 osnovne vrste geometrijskih oblika:
+
+1. Ravni (2D) oblici
+
+Oni imaju dužinu i širinu, ali nema visinu. Nalaze se na ravni (kao papir).
+
+Kvadrat – sve strane jednake, svi uglovi pravi.
+
+Pravougaonik – suprotne strane jednake, svi uglovi pravi.
+
+Trougao – figura sa 3 stranice i 3 ugla.
+
+Krug – svi delovi su na istoj udaljenosti od centra.
+
+Romb, trapez, paralelogram – posebni četvorouglovi.
+
+
+2. Prostorni (3D) oblici
+
+Imaju dužinu, širinu i visinu – dakle, zauzimaju prostor.
+
+Kocka – 6 jednakih kvadrata.
+
+Kvadar – kao kocka, ali stranice nisu sve iste.
+
+Kugla – kao lopta, potpuno okrugla u svim pravcima.
+
+Valjak – kao limenka; ima 2 kruga i zakrivljenu površinu.
+
+Kupa – kao sladoled u kornetu.
+
+Piramida – ima osnovu (trougao ili kvadrat) i vrh.` },
+      "Razlomci": { opis: `Razlomci predstavljaju delove celina, npr. 1/2 je pola.` },
+      "Merenje dužine": { opis: `Dužina je rastojanje između dve tačke. Merenje dužine je način da saznamo koliko je nešto dugačko, široko ili visoko.
+
+Jedinice za merenje dužine (metrički sistem):
+
+Koristimo metrički sistem, koji je standardan u nauci i u svakodnevnom životu:
+
+
+---
+
+Gde koristimo dužinu?
+
+Lenjir: meri do 30 cm – koristi se u školi.
+
+Metar: koristi se za merenje stvari kod kuće (npr. sto, krevet).
+
+Točak za merenje: koristi se za duže razdaljine.
+
+Kilometar: meri rastojanje između gradova (npr. Beograd - Novi Sad).
+
+
+
+---
+
+Zanimljivost:
+
+1 metar je definisan kao rastojanje koje svetlost pređe u vakumu za tačno 1/299 792 458 sekundi – ali ne brini, u školi koristimo lenjire!` },
+      "Vreme": { opis: `Vreme je pojam koji koristimo da odredimo trajanje nečega ili redosled događaja. Na primer: "Koliko traje čas?" ili "Kada počinje film?"
+
+
+---
+
+Osnovne jedinice za merenje vremena:
+
+
+---
+
+Gde koristimo vreme?
+
+Sat – pokazuje koliko je sati.
+
+Kalendar – pokazuje datume i mesece.
+
+Tajmer i štoperica – meri trajanje nečega (npr. trka, kuvanje).
+
+Raspored časova – koristi vreme da se zna kad šta počinje i završava.
+
+
+
+---
+
+Zanimljivost:
+
+Vreme je toliko važno da se meri atomičkim satovima – najpreciznijim uređajima na svetu, koji greše samo 1 sekundu u milionima godina!` },
+      "Novac": { opis: `Novac je sredstvo koje koristimo da kupujemo stvari i plaćamo usluge.
+
+Kada hoćeš da kupiš čokoladu, igračku ili odeš kod frizera – koristiš novac!
+
+
+---
+
+Oblici novca:
+
+1. Kovanice – metalni novac (npr. 1 dinar, 2 dinara, 10 dinara…)
+
+
+2. Novčanice – papirni novac (npr. 100 dinara, 500 dinara…)
+
+
+3. Digitalni novac – kada plaćaš karticom ili telefonom, bez da vidiš pravi novac.
+
+
+
+
+---
+
+Valuta (vrsta novca):
+
+U Srbiji koristimo dinare (RSD).
+
+U Evropi se često koristi evro (EUR).
+
+U Americi se koristi dolar (USD).
+
+
+
+---
+
+Zašto koristimo novac?
+
+Da ne moramo da menjamo stvari (npr. kokošku za hleb).
+
+Da svi znaju koliko nešto vredi.
+
+Da štedimo i kupimo nešto kasnije.
+
+
+
+---
+
+Zanimljivost:
+
+Nekada davno ljudi nisu imali novac, već su razmenjivali stvari – to se zove trampa. Na primer: "Dajem ti 3 jabuke za 1 hleb."` },
+      "Jednačine": { opis: `Jednačina je matematički izraz u kojem tražimo nepoznati broj.
+
+Jednačina uvek ima:
+
+Levu stranu
+
+Desnu stranu
+
+Znak jednakosti (=) koji kaže da su obe strane jednake
+
+
+Primer:
+
+x + 3 = 7
+
+Ova jednačina znači: Koji broj + 3 daje 7?
+
+Odgovor je:
+
+x = 4
+
+Jer:
+
+4 + 3 = 7
+
+
+---
+
+Delovi jednačine:
+
+x je nepoznata (to je ono što tražimo)
+
++ 3 je broj koji dodajemo
+
+7 je rezultat
+
+
+
+---
+
+Kako rešavamo jednačine?
+
+Cilj: da x ostane sam na levoj strani.
+
+1. Počinjemo sa:
+
+x + 3 = 7
+
+
+2. Oduzmemo 3 sa obe strane:
+
+x = 7 - 3
+
+
+3. Dobijemo:
+
+x = 4
+
+
+
+
+---
+
+Zanimljivost:
+
+Jednačine su osnova za sve u matematici, fizici, programiranju, čak i u video igricama! Ako znaš da rešavaš jednačine – otključavaš matematičke supermoći!` },
+      "Deljivost brojeva": { opis: `Deljivost znači da jedan broj može da se podeli drugim bez ostatka.
+
+Primer:
+
+12 ÷ 4 = 3 → deljivo (nema ostatka)
+
+13 ÷ 4 = 3 i ostatak 1 → nije deljivo
+
+
+
+---
+
+Pravila deljivosti – kako znamo bez računanja?
+
+Deljivost sa 2:
+
+Broj je deljiv sa 2 ako je paran (završava se na 0, 2, 4, 6, 8).
+Primeri: 14, 28, 102
+
+Deljivost sa 3:
+
+Broj je deljiv sa 3 ako je zbir njegovih cifara deljiv sa 3.
+Primer: 123 → 1 + 2 + 3 = 6 → deljiv sa 3
+
+Deljivost sa 4:
+
+Gledamo poslednje dve cifre – ako su deljive sa 4, ceo broj jeste.
+Primer: 312 → 12 je deljivo sa 4 → DA
+
+Deljivost sa 5:
+
+Ako broj završava na 0 ili 5.
+Primeri: 25, 40, 105
+
+Deljivost sa 6:
+
+Ako je broj deljiv i sa 2 i sa 3.
+Primer: 18 → paran i 1 + 8 = 9 → jeste!
+
+Deljivost sa 9:
+
+Ako je zbir cifara deljiv sa 9.
+Primer: 729 → 7 + 2 + 9 = 18 → 18 ÷ 9 = 2 → jeste!
+
+Deljivost sa 10:
+
+Ako se broj završava sa 0.
+Primeri: 30, 100, 740
+
+
+---
+
+Zanimljivost:
+
+Ako znaš ova pravila, možeš proveriti deljivost bez digitrona – kao matematički detektiv!` },
+      "Zapremina": { opis: `Zapremina je prostor koji neko telo zauzima. Kada napuniš čašu vodom – količina vode unutra je zapremina!
+
+Zapremina nam govori koliko nečega stane unutar nekog objekta (npr. kutije, flaše, bazena...).
+
+
+---
+
+Jedinice za zapreminu (metrički sistem):
+
+
+---
+
+Zapremina pravougaonog (kvadarnog) oblika:
+
+Formula:
+
+V = a × b × h
+
+Gde je:
+
+a – dužina
+
+b – širina
+
+h – visina
+
+
+Primer:
+
+Ako kutija ima:
+
+a = 5 cm
+
+b = 3 cm
+
+h = 2 cm
+
+
+Onda:
+
+V = 5 × 3 × 2 = 30 cm³
+
+
+---
+
+Zanimljivost:
+
+Plastična flaša od 1 litar ima zapreminu od 1 dm³, što je isto kao 1000 cm³ – sve zavisi od jedinica!` },
+      "Simetrija": { opis: `Simetrija je kada se nešto može podeliti na dva jednaka dela koji su kao ogledalo jedan drugom.
+
+Zamisli da preklopiš papir – ako se obe strane poklope savršeno, to je simetrija!
+
+
+---
+
+Vrste simetrije:
+
+1. Osna (linijska) simetrija
+
+Ima liniju simetrije
+
+Leva i desna (ili gornja i donja) strana su iste
+
+
+Primeri:
+
+Srce
+
+Leptir
+
+Slovo A, M, T, H...
+
+
+
+---
+
+2. Radijalna simetrija
+
+Sve se okreće oko jedne tačke u sredini
+
+Ima više "krakova" koji se ponavljaju
+
+
+Primeri:
+
+Cvet
+
+Točak bicikla
+
+Zvezda
+
+
+
+---
+
+3. Translaciona simetrija (u uzorcima)
+
+Kada se isti oblik ponavlja u istom pravcu
+
+
+Primeri:
+
+Pločice na podu
+
+Tapete
+
+Mozaici
+
+
+
+---
+
+Zašto je simetrija važna?
+
+U prirodi: leptiri, cvetovi, ljudsko telo
+
+U umetnosti i arhitekturi: građevine, slike, dizajn
+
+U matematici i geometriji: pravila, konstrukcije, ogledanja
+
+
+
+---
+
+Zanimljivost:
+
+Ljudi instinktivno smatraju simetriju lepom – zato je ima svuda u modi, dizajnu i prirodi!` },
+      "Decimalni brojevi": { opis: `Decimalni brojevi su brojevi koji imaju zarez (ili tačku) i predstavljaju delove celog broja.
+
+Zamisli da imaš celu čokoladu i pojedeš pola – to je 0,5 čokolade!
+
+
+---
+
+Kako izgledaju decimalni brojevi?
+
+Primeri:
+
+1,5 (jedan i po)
+
+2,75 (dva i 75 stotinki)
+
+0,25 (četvrtina)
+
+
+
+---
+
+Delovi decimalnog broja:
+
+Primer:
+
+12,34
+
+12 → ceo deo
+
+34 → decimalni deo (to su desetinke i stotinke)
+
+
+
+---
+
+Mesta posle zareza:
+
+
+---
+
+Sabiranje i oduzimanje:
+
+Samo poravnaj zareze i računaj kao obično.
+
+Primer:
+
+1,2 + 3,45 = 4,65
+
+
+---
+
+Pretvaranje u razlomke:
+
+Primer:
+
+0,5 = 1/2
+
+0,25 = 1/4
+
+0,75 = 3/4
+
+
+
+---
+
+Zanimljivost:
+
+Decimalni brojevi se koriste svakog dana:
+
+Kod cena (npr. 129,99 din)
+
+Kod merenja (visina, težina)
+
+Kod vremena i novca` },
+      "Operacije sa razlomcima": { opis: `Razlomak je deo od celine i piše se ovako:
+
+a/b
+
+Gde je:
+
+a – brojilac (gore)
+
+b – imenilac (dole, koliko delova ima cela)
+
+
+Primer:
+
+3/4** – tri četvrtine
+
+---
+
+## **1. Sabiranje i oduzimanje razlomaka**
+
+### Ako imaju isti imenilac:
+Samo saberi ili oduzmi brojioca.
+
+**Primer:**
+
+2/5 + 1/5 = 3/5
+
+### Ako imaju različite imenioce:
+Prvo ih svedi na **zajednički imenilac**.
+
+**Primer:**
+
+1/3 + 1/4 = ?
+
+Najmanji zajednički imenilac za 3 i 4 je **12**.
+
+1/3 = 4/12
+1/4 = 3/12
+
+4/12 + 3/12 = 7/12
+
+---
+
+## **2. Množenje razlomaka**
+
+**Jednostavno – samo pomnoži brojilac sa brojiocem i imenilac sa imeniocem.**
+
+**Primer:**
+
+2/3 × 4/5 = (2×4)/(3×5) = 8/15
+
+---
+
+## **3. Deljenje razlomaka**
+
+**Zameni drugi razlomak i onda množi.**  
+To se zove **multiplikacija recipročne vrednosti**.
+
+**Primer:**
+
+2/3 ÷ 4/5 = 2/3 × 5/4 = (2×5)/(3×4) = 10/12 = 5/6
+
+---
+
+## **4. Skraćivanje razlomaka**
+
+Skraćuješ kad **brojilac i imenilac mogu da se podele istim brojem**.
+
+**Primer:**
+
+6/8 → (podeli sa 2) → 3/4
+
+---
+
+## **Zanimljivost:**
+Razlomci se koriste kod **kuvanja (1/2 kašike)**, **muzike (četvrtinke, osmine)** i u **programiranju** (npr. 0.5 = 1/2)!` },
+      "Koordinatni sistem": { opis: `Koordinatni sistem je sistem koji koristi dva ili više brojeva za prikazivanje pozicije tačke u prostoru.
+
+Za dve dimenzije (na ravni), koristimo dve ose – horizontalnu (X) i vertikalnu (Y). Tačke se prikazuju kao uređeni parovi brojeva .
+
+
+---
+
+Osnovne komponente:
+
+1. Ose:
+
+X osa (horizontalna): Postavlja se od levo ka desno.
+
+Y osa (vertikalna): Postavlja se od dole ka gore.
+
+
+2. Početna tačka (O):
+
+Tačka (0, 0), gde se ukrštaju X i Y ose, naziva se poreklo ili origina.
+
+3. Koordinate tačke:
+
+Tačka se zapisuje kao uređeni par , gde:
+
+x je udaljenost duž X ose
+
+y je udaljenost duž Y ose
+
+
+
+---
+
+Kako funkcioniše koordinatni sistem?
+
+Primer:
+
+Tačka  znači:
+
+3 – 3 jedinice desno od porekla (X osa)
+
+2 – 2 jedinice gore od porekla (Y osa)
+
+
+
+---
+
+Kvadranti:
+
+Koordinatni sistem je podeljen na četiri kvadranta:
+
+1. Prvi kvadrant (gore desno) – obe koordinate su pozitivne.
+
+
+2. Drugi kvadrant (gore levo) – X je negativan, Y je pozitivan.
+
+
+3. Treći kvadrant (dole levo) – obe koordinate su negativne.
+
+
+4. Četvrti kvadrant (dole desno) – X je pozitivan, Y je negativan.
+
+
+
+
+---
+
+Primeri tačaka u različitim kvadrantima:
+
+Tačka (2, 3) je u prvom kvadrantu.
+
+Tačka (-2, 3) je u drugom kvadrantu.
+
+Tačka (-2, -3) je u trećem kvadrantu.
+
+Tačka (2, -3) je u četvrtom kvadrantu.
+
+
+
+---
+
+Zanimljivost:
+
+Koordinatni sistem se koristi u geografiji (karte), grafici (prikazivanje podataka), inženjeringu i video igrama (pozicije objekata)!` },
+      "Trouglovi": { opis: `Trougao je geometrijski oblik sa tri strane i tri ugla. Svi trouglovi, bez obzira na to kako izgledaju, imaju ovo osnovno svojstvo.
+
+
+---
+
+Vrste trouglova prema stranicama:
+
+1. Jednakostranični trougao:
+
+Sve tri strane su jednake.
+
+Svi unutrašnji uglovi su 60°.
+
+
+Primer:
+
+Savršen trougao sa strane 5 cm.
+
+
+
+---
+
+2. Jednakokraki trougao:
+
+Dve strane su jednake.
+
+Dva ugla su jednaka.
+
+
+Primer:
+
+Trougao sa stranama 4 cm, 4 cm i 6 cm.
+
+
+
+---
+
+3. Nekaostranični trougao:
+
+Svi uglovi su različiti.
+
+Sve tri strane su različite dužine.
+
+
+Primer:
+
+Trougao sa stranama 3 cm, 4 cm, i 5 cm.
+
+
+
+---
+
+Vrste trouglova prema uglovima:
+
+1. Oštrougli trougao:
+
+Svi unutrašnji uglovi su manji od 90°.
+
+
+Primer:
+
+Svuda oko nas, kao u jednakostraničnom ili jednakokrakom trouglu.
+
+
+
+---
+
+2. Pravougli trougao:
+
+Jedan unutrašnji ugao je 90° (pravi ugao).
+
+
+Primer:
+
+Poznati trougao sa stranicama 3 cm, 4 cm, i 5 cm (Pitagorina teorema).
+
+
+
+---
+
+3. Tupougli trougao:
+
+Jedan unutrašnji ugao je veći od 90°.
+
+
+Primer:
+
+Pronađen u prirodi ili različitim projektima, kao što je neki prilazni put.
+
+
+
+---
+
+Pitagorina teorema (za pravougli trougao):
+
+U pravouglom trouglu, kvadrat nad hipotenuzom (najdužom stranicom) je jednak zbiru kvadrata nad ostale dve stranice.
+
+Formula:
+
+a² + b² = c²
+
+Gde su:
+
+a i b katete (kraće strane)
+
+c je hipotenuza (najduža strana)
+
+
+Primer:
+Za trougao sa katetama 3 cm i 4 cm:
+
+3² + 4² = c²  
+9 + 16 = c²  
+25 = c²  
+c = 5 cm
+
+
+---
+
+Obim i površina trougla:
+
+Obim trougla:
+
+Suma svih strana. Formula:
+
+Obim = a + b + c
+
+Površina trougla:
+
+Površina se računa kao:
+
+P = (osnova × visina) / 2
+
+Gde je osnova bilo koja stranica, a visina je rastojanje od osnove do suprotnog ugla.
+
+
+---
+
+Zanimljivost:
+
+Trouglovi su osnova za mnoge geometrijske konstrukcije i koriste se u inženjeringu, arhitekturi, pa čak i umetnosti (npr. u izradi piramida).` },
+      "Procenti": { opis: `Procenti su način da izražavamo deo od 100. Reč procenat potiče od latinske reči "per centum", što znači "po stotinu".
+
+Znači, 1% znači 1 od 100.
+
+
+---
+
+Kako računamo procente?
+
+Formula za procenat:
+
+Procenat = (deo / celina) × 100
+
+Primer:
+Ako imaš 20 od 50 markica:
+
+(20 / 50) × 100 = 40%
+
+Znači, imaš 40% markica.
+
+
+---
+
+Povećanje ili smanjenje uz procente
+
+Kada želiš da povećaš ili smanjiš nešto za određeni procenat, koristi sledeću formulu:
+
+Povećanje za procenat:
+
+Nova vrednost = Stara vrednost × (1 + Procenat/100)
+
+
+
+Smanjenje za procenat:
+
+Nova vrednost = Stara vrednost × (1 - Procenat/100)
+
+
+
+
+Primer:
+Cena proizvoda je 200 dinara, a popust je 10%. Kako izračunati novu cenu?
+
+Nova cena = 200 × (1 - 10/100)  
+Nova cena = 200 × 0,9 = 180 dinara
+
+
+---
+
+Kako da izračunamo ceo broj na osnovu procenta?
+
+Ako znaš procenat i želiš da pronađeš deo:
+
+Deo = (procenat × celina) / 100
+
+Primer:
+Koji je 25% od 200?
+
+Deo = (25 × 200) / 100 = 50
+
+Dakle, 25% od 200 je 50.
+
+
+---
+
+Povezivanje sa razlomcima i decimalama:
+
+1% je isto što i 1/100 ili 0.01.
+
+50% je isto što i 1/2 ili 0.5.
+
+
+
+---
+
+Zanimljivost:
+
+Procenti se koriste u finansijama (popusti, kamate), statistici (rezultati anketa), u zdravlju (procenat masti u hrani) i matematici!` },
+      "Negativni brojevi": { opis: `Negativni brojevi su brojevi manji od nule, a označavamo ih sa minus (-) ispred broja. Na brojnoj liniji, negativni brojevi se nalaze levo od nule.
+
+Primeri negativnih brojeva:
+
+-1, -5, -10, -0.5, itd.
+
+
+
+---
+
+Korišćenje negativnih brojeva:
+
+1. Brojna linija:
+
+Na brojnoj liniji, nula je u sredini, a negativni brojevi su levo od nule, dok su pozitivni brojevi desno.
+
+Primer:
+
+-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5
+
+
+---
+
+2. Primene negativnih brojeva:
+
+Temperatura: Ako temperatura padne ispod nule, koristimo negativne brojeve. Na primer, -5°C znači 5 stepeni ispod nule.
+
+Dugovanje: Ako dugujete novac, to je takođe negativni broj. Na primer, dug od -1000 dinara znači da dugujete 1000 dinara.
+
+Visina: Na planini, ako se nalazite ispod nivoa mora, visina je negativna. Na primer, -50 metara znači da ste 50 metara ispod nivoa mora.
+
+
+
+---
+
+Računanje sa negativnim brojevima:
+
+1. Sabiranje negativnih brojeva:
+
+Kada sabiramo dva negativna broja, samo sabiramo njihove apsolutne vrednosti (brojeve bez znaka minus), a zatim dodajemo znak minus.
+
+
+Primer:
+
+-3 + (-4) = -7
+
+Kada sabiramo pozitivan i negativan broj, od veće apsolutne vrednosti oduzimamo manju, a znak daje broj sa većom apsolutnom vrednošću.
+
+
+Primer:
+
+5 + (-3) = 2
+
+
+---
+
+2. Oduzimanje negativnih brojeva:
+
+Oduzimanje negativnog broja je isto kao sabiranje njegovog pozitivnog ekvivalenta.
+
+
+Primer:
+
+5 - (-3) = 5 + 3 = 8
+
+
+---
+
+3. Množenje negativnih brojeva:
+
+Kada množimo dva negativna broja, rezultat je pozitivan.
+
+
+Primer:
+
+-2 × -3 = 6
+
+Kada množimo pozitivan broj sa negativnim, rezultat je negativan.
+
+
+Primer:
+
+-2 × 3 = -6
+
+
+---
+
+4. Deljenje negativnih brojeva:
+
+Kao i kod množenja, deljenje dva negativna broja daje pozitivan rezultat.
+
+
+Primer:
+
+-6 ÷ -3 = 2
+
+Deljenje pozitivnog broja sa negativnim daje negativan rezultat.
+
+
+Primer:
+
+6 ÷ -3 = -2
+
+
+---
+
+Zanimljivosti:
+
+Negativni brojevi su ključni u ekonomiji (dugovi, gubici), fizici (temperatura, visina) i tehnologiji (kompjuteri, digitalna signalizacija).
+
+Matematika sa negativnim brojevima je osnov za algebru, kalkulus, statistiku i mnoge druge grane.` },
+      "Skupovi": { opis: `Skup je kolekcija (zbirka) jasno definisanih elemenata (brojeva, slova, predmeta, itd.). Skupovi su osnova za razumevanje mnogo važnih pojmova u matematici.
+
+
+---
+
+Kako zapisujemo skupove?
+
+Skup se najčešće piše unutar viticastih zagrada { }.
+
+Primer:
+
+Skup svih parnih brojeva manjih od 10:
+A = {2, 4, 6, 8}
+
+
+
+---
+
+Element skupa
+
+Ako neki broj ili objekat pripada skupu, kažemo da je on element skupa.
+
+Pišemo: a ∈ A (a je element skupa A)
+
+Ako nije član: a ∉ A
+
+
+Primer:
+Ako je A = {1, 2, 3}, onda:
+
+2 ∈ A
+
+5 ∉ A
+
+
+
+---
+
+Vrste skupova:
+
+1. Konačan skup
+
+Skup koji ima konačan broj elemenata.
+Primer: {a, b, c}
+
+2. Beskonačan skup
+
+Skup koji ima beskonačno mnogo elemenata.
+Primer: Skup svih prirodnih brojeva: {1, 2, 3, 4, 5, ...}
+
+3. Prazan skup
+
+Skup koji nema nijedan element.
+Označava se kao: ∅ ili { }
+
+
+---
+
+Operacije nad skupovima:
+
+1. Unija skupova (A ∪ B):
+
+Skup koji sadrži sve elemente iz oba skupa, bez ponavljanja.
+
+Primer: A = {1, 2, 3}, B = {3, 4, 5}
+A ∪ B = {1, 2, 3, 4, 5}
+
+
+---
+
+2. Presek skupova (A ∩ B):
+
+Skup elemenata koji su zajednički za oba skupa.
+
+Primer:
+A ∩ B = {3}
+
+
+---
+
+3. Razlika skupova (A \ B):
+
+Skup elemenata koji su u A, ali nisu u B.
+
+Primer:
+A \ B = {1, 2}
+
+
+---
+
+Podskup:
+
+Ako su svi elementi skupa A sadržani u skupu B, kažemo da je A podskup skupa B.
+
+Pišemo: A ⊆ B
+
+
+Primer: A = {1, 2}, B = {1, 2, 3}
+→ A ⊆ B
+
+
+---
+
+Zanimljivosti:
+
+Skupovi se koriste svuda: u programiranju, logici, kombinatorici, statistici, pa čak i u društvenim naukama.
+
+Pomoću Vennovih dijagrama, skupovi se mogu crtati i vizualizovati kao krugovi koji se preklapaju.` },
+      "Deljivost": { opis: `Deljivost znači da jedan broj može da se podeli drugim brojem bez ostatka.
+
+Primer:
+
+12 je deljivo sa 3, jer je 12 ÷ 3 = 4 (bez ostatka)
+
+13 nije deljivo sa 3, jer je 13 ÷ 3 = 4 ostatak 1
+
+
+
+---
+
+Simbolično:
+
+Kažemo da je a deljivo sa b ako postoji ceo broj k takav da je:
+a = b × k
+
+
+---
+
+Pravila deljivosti (najvažnija):
+
+Deljivost sa 2
+
+Broj je deljiv sa 2 ako mu je poslednja cifra paran broj (0, 2, 4, 6, 8).
+Primer: 24, 86, 100
+
+
+---
+
+Deljivost sa 3
+
+Broj je deljiv sa 3 ako je zbir njegovih cifara deljiv sa 3.
+Primer: 123 → 1 + 2 + 3 = 6 → deljivo sa 3
+
+
+---
+
+Deljivost sa 4
+
+Broj je deljiv sa 4 ako broj poslednje dve cifre čini broj deljiv sa 4.
+Primer: 312 → 12 je deljivo sa 4 → 312 je deljivo sa 4
+
+
+---
+
+Deljivost sa 5
+
+Broj je deljiv sa 5 ako mu je poslednja cifra 0 ili 5.
+Primer: 35, 60, 100
+
+
+---
+
+Deljivost sa 6
+
+Broj je deljiv sa 6 ako je deljiv i sa 2 i sa 3.
+Primer: 42 je paran i 4 + 2 = 6 → deljivo sa 3 → deljivo sa 6
+
+
+---
+
+Deljivost sa 9
+
+Broj je deljiv sa 9 ako je zbir cifara deljiv sa 9.
+Primer: 729 → 7 + 2 + 9 = 18 → deljivo sa 9
+
+
+---
+
+Deljivost sa 10
+
+Broj je deljiv sa 10 ako mu je poslednja cifra 0.
+Primer: 70, 120, 1000
+
+
+---
+
+Deljivost sa 100
+
+Broj je deljiv sa 100 ako se završava sa dve nule.
+Primer: 300, 1200
+
+
+---
+
+Zanimljivosti:
+
+Deljivost se koristi pri proveri da li broj ima delioce, pri kraćenju razlomaka, u aritmetici, ali i u kriptografiji i programiranju!
+
+Znaš li da postoje prvobrojni faktori i najveći zajednički delilac (NZD)? Sve to se računa pomoću deljivosti!` },
+      "Pitagorina teorema": { opis: `Pitagorina teorema je jedno od najpoznatijih pravila u matematici i koristi se kod pravouglog trougla (trougla koji ima jedan ugao od 90°).
+
+
+---
+
+Formula:
+
+Ako je trougao pravougli i ako su:
+
+a i b katete (stranice koje formiraju pravi ugao),
+
+c hipotenuza (najduža stranica, naspram pravog ugla),
+
+
+onda važi:
+
+a² + b² = c²
+
+
+---
+
+Primer:
+
+Ako su:
+
+a = 3
+
+b = 4
+
+
+onda:
+
+a² + b² = 3² + 4² = 9 + 16 = 25
+
+→ c² = 25
+→ c = √25 = 5
+
+Dakle, hipotenuza je 5.
+
+
+---
+
+Za šta se koristi Pitagorina teorema?
+
+Da se izračuna dužina stranice pravouglog trougla
+
+U geometriji, fizici, inženjerstvu
+
+Kod merenja rastojanja (npr. dijagonala u pravougaoniku)
+
+Kod koordinatnog sistema za pronalaženje razdaljine između tačaka
+
+
+
+---
+
+Vizuelni prikaz (opis crteža):
+
+Zamisli pravougli trougao gde su na svakoj strani kvadrati:
+
+Površina kvadrata nad katetama: a² i b²
+
+Površina kvadrata nad hipotenuzom: c²
+→ Zbir površina nad katetama je jednak površini nad hipotenuzom!
+
+
+
+---
+
+Zanimljivosti:
+
+Pitagorina teorema je stara preko 2500 godina
+
+Osnovna je za mnoge oblasti: trigonometriju, 3D geometriju, analitičku geometriju
+
+Često se koristi i u računarskoj grafici, dronovima, navigaciji, itd.` },
+      "Nejednačine": { opis: `Nejednačine su matematički izrazi u kojima koristimo simbole za nejednakost (>, <, ≥, ≤, ≠), umesto jednakosti (=). Nejednačine se koriste da bismo prikazali odnose između brojeva koji nisu jednaki.
+
+Simboli nejednakosti:
+
+> – veće od
+
+< – manje od
+
+≥ – veće ili jednako
+
+≤ – manje ili jednako
+
+≠ – nije jednako
+
+
+
+---
+
+Vrste nejednačina:
+
+1. Linijske nejednačine:
+
+Ove nejednačine se rešavaju slično kao linearne jednačine, ali obratimo pažnju na simbol nejednakosti.
+
+Primer:
+2x + 5 > 9
+
+Da rešimo ovu nejednačinu:
+
+1. Oduzmemo 5 sa obe strane:
+2x > 4
+
+
+2. Podelimo sa 2:
+x > 2
+
+
+
+Rešenje je x > 2, što znači da je x bilo koji broj veći od 2.
+
+
+---
+
+2. Nejednačine sa apsolutnom vrednošću:
+
+Kada imamo apsolutnu vrednost, koristimo definiciju apsolutne vrednosti za rešavanje.
+
+Primer:
+|x - 3| < 5
+
+Ovo znači da je x - 3 između -5 i 5:
+
+-5 < x - 3 < 5
+
+Dodajemo 3 na sve strane:
+-2 < x < 8
+
+
+Rešenje je x ∈ (-2, 8), što znači da su svi brojevi između -2 i 8 rešenja ove nejednačine.
+
+
+---
+
+3. Kvadratne nejednačine:
+
+Kvadratne nejednačine su nejednačine koje uključuju kvadratne izraze (npr. x²). Da bismo ih rešili, prvo moramo rešiti kvadratnu jednakost, a zatim analizirati intervale.
+
+Primer:
+x² - 4 < 0
+
+1. Prebacujemo sve na jednu stranu:
+x² < 4
+
+
+2. Rešavamo kvadratnu jednakost:
+x ∈ (-2, 2)
+
+
+
+Rešenje je x ∈ (-2, 2), što znači da su svi brojevi između -2 i 2 rešenja ove nejednačine.
+
+
+---
+
+Kreiranje grafova nejednačina:
+
+Za nejednačine možemo crtati grafove na brojnoj liniji. Na grafu:
+
+Za > i <, koristimo otvorene kružiće, jer ta tačka nije uključena.
+
+Za ≥ i ≤, koristimo zatvorene kružiće, jer ta tačka jeste uključena.
+
+
+Primer:
+Za rešenje x ≥ 3, na brojnoj liniji staviš zatvoren kružić na 3, a zatim crtaš crtu koja ide desno (prema većim vrednostima).
+
+
+---
+
+Zanimljivosti:
+
+Nejednačine su vrlo korisne u optimizaciji, ekonomiji, fizici, statistici i mnogim drugim oblastima.
+
+Rešenja nejednačina mogu biti jedan broj, interval ili neograničen skup brojeva.` },
+      "Razlomci izrazi": { opis: `Razlomak je matematički izraz koji označava podelu jednog broja sa drugim. Razlomak se sastoji od dva dela:
+
+Brojilac (gore) – broj koji se deli.
+
+Imenilac (dole) – broj sa kojim se deli.
+
+
+Primer:
+ – Brojilac je 3, a imenilac je 4. Ovo znači "3 podeljeno sa 4".
+
+
+---
+
+Vrste razlomaka:
+
+1. Obični razlomak:
+Ovaj razlomak je izražen sa brojilac/imenilac.
+Primer: , 
+
+
+2. Mešoviti broj:
+Ovo je kombinacija celog broja i razlomka.
+Primer: 
+
+
+3. Decimalni razlomak:
+Razlomak koji je izražen kao decimalni broj.
+Primer: 
+
+
+4. Neprosti razlomak:
+Razlomak gde je brojilac veći od imenilaca.
+Primer: 
+
+
+5. Prosti razlomak:
+Razlomak gde je brojilac manji od imenilaca.
+Primer: 
+
+
+
+
+---
+
+Operacije sa razlomcima:
+
+1. Sabiranje i oduzimanje razlomaka
+
+Da bismo sabrali ili oduzeli razlomke, moramo imati zajednički imenilac.
+
+Primer:
+
+
+Da bismo sabrali ove razlomke, prvo ćemo naći zajednički imenilac (u ovom slučaju to je 12):
+
+
+
+
+
+
+Sada sabiramo:
+
+\frac{3}{12} + \frac{8}{12} = \frac{11}{12}
+
+
+---
+
+2. Množenje razlomaka
+
+Da bismo pomnožili dva razlomka, pomnožimo brojioce i imenioce.
+
+Primer:
+
+
+
+---
+
+3. Deljenje razlomaka
+
+Za deljenje razlomaka, pomnožimo prvi razlomak sa obratom drugog razlomka.
+
+Primer:
+
+
+Zatim skratimo: 
+
+
+---
+
+4. Skracivanje razlomaka
+
+Razlomak možemo skratiti ako brojilac i imenilac imaju zajednički delilac.
+
+Primer:
+
+
+Najveći zajednički delilac (NZD) između 12 i 16 je 4, pa ćemo skratiti:
+
+\frac{12}{16} = \frac{12 ÷ 4}{16 ÷ 4} = \frac{3}{4}
+
+
+---
+
+Mešoviti brojevi i njihovo pretvaranje:
+
+Ako želimo da mešoviti broj pretvorimo u razlomak ili obrnuto, koristimo sledeće korake.
+
+Primer 1: Pretvaranje mešovitog broja u razlomak:
+
+
+
+1. Pomnožimo ceo broj sa imenilacem: 
+
+
+2. Dodamo brojilac: 
+
+
+3. Rezultat je: 
+
+
+
+
+---
+
+Primer 2: Pretvaranje razlomka u mešoviti broj:
+
+
+
+1. Podelimo brojilac sa imenilacem:  (ostatak 1)
+
+
+2. Ostatak je brojilac, a imenilac ostaje isti: 
+
+
+
+
+---
+
+Zanimljivosti:
+
+Razlomci se koriste u proporcijama, postotcima, proračunima i mnogim drugim matematičkim operacijama.
+
+Razlomke možemo koristiti za prikazivanje delova celokupnog broja, što je osnova za mnoge primene u stvarnom životu (npr. u kuvarstvu, finansijama, statistici).` },
+      "Polinomi": { opis: `Polinom je matematički izraz koji se sastoji od koeficijenata i promenljivih (obično označenih sa x, y, z, itd.) koji su povezani sa celobrojnim eksponentima.
+
+Opšti oblik polinoma:
+
+Polinom može izgledati ovako:
+
+P(x) = a_nx^n + a_{n-1}x^{n-1} + \cdots + a_1x + a_0
+
+Gde:
+
+ su koeficijenti polinoma, koji mogu biti bilo koji brojevi (realni, kompleksni, itd.).
+
+ je promenljiva.
+
+ je stepen polinoma (najveći eksponent promenljive).
+
+
+
+---
+
+Vrste polinoma:
+
+1. Polinom prvog stepena (linearni polinom):
+
+Oblik: 
+
+Primer: 
+
+
+
+2. Polinom drugog stepena (kvadratni polinom):
+
+Oblik: 
+
+Primer: 
+
+
+
+3. Polinom trećeg stepena (kubni polinom):
+
+Oblik: 
+
+Primer: 
+
+
+
+4. Višestruki polinomi (polinomi višeg stepena):
+
+Polinomi sa višim eksponentima .
+
+Primer: 
+
+
+
+
+
+---
+
+Operacije sa polinomima:
+
+1. Sabiranje i oduzimanje polinoma:
+
+Da bismo sabrali ili oduzeli polinome, sabiremo ili oduzimamo koeficijente sa istim stepenima promenljive.
+
+Primer:
+
+(2x^2 + 3x + 1) + (x^2 - x + 4) = (2x^2 + x^2) + (3x - x) + (1 + 4) = 3x^2 + 2x + 5
+
+
+---
+
+2. Množenje polinoma:
+
+Da bismo pomnožili dva polinoma, koristimo distributivnost i množimo svaki član iz jednog polinoma sa svakim članom iz drugog polinoma.
+
+Primer:
+
+(2x + 3)(x + 1) = 2x(x + 1) + 3(x + 1)
+
+= 2x^2 + 2x + 3x + 3 = 2x^2 + 5x + 3 ]
+
+
+---
+
+3. Deljenje polinoma:
+
+Deljenje polinoma se obično radi pomoću deljanja sa polinomom (koristeći postupak sličan deljenju sa brojem), ili djeljenjem po stepenima.
+
+Primer:
+
+\frac{x^2 + 5x + 6}{x + 2}
+
+
+---
+
+4. Faktorizacija polinoma:
+
+Faktorizacija je postupak razlaganja polinoma na proizvod manjih polinoma.
+
+Primer:
+
+x^2 + 5x + 6 = (x + 2)(x + 3)
+
+
+---
+
+5. Evaluacija polinoma:
+
+Evaluacija polinoma znači izračunavanje vrednosti polinoma za određenu vrednost promenljive .
+
+Primer: Za polinom , da bismo izračunali vrednost kada je :
+
+P(2) = 2(2)^2 + 3(2) + 1 = 2(4) + 6 + 1 = 8 + 6 + 1 = 15
+
+
+---
+
+Zanimljivosti o polinomima:
+
+Stepene polinoma možemo koristiti za analizu ponašanja funkcije (na primer, kako funkcija raste ili opada).
+
+Polinomi su osnova za mnoge oblasti matematike, poput trigonometrije, analize funkcija, i u razučavanju.
+
+Polinomi se često koriste u realnom životu, na primer u inženjeringu, fizici i statistici.` },
+      "Funkcije": { opis: `Funkcija je matematička relacija koja povezuje svaki element iz jednog skupa (obično označen kao domena) sa jedinstvenim elementom iz drugog skupa (obično označen kao kodomena). Funkcija se obično piše kao , gde je  naziv funkcije, a  ulazna vrednost (ili promenljiva).
+
+Opšti oblik funkcije:
+
+Funkcija može biti zapisana u obliku:
+
+f: X \rightarrow Y
+
+X je domena (skup svih mogućih vrednosti koje funkcija može da prihvati kao ulaz),
+
+Y je kodomena (skup svih mogućih vrednosti koje funkcija može da izvede kao izlaz).
+
+
+U najjednostavnijem slučaju, funkcija može biti zapisana kao:
+
+f(x) = 2x + 3
+
+
+---
+
+Vrste funkcija:
+
+1. Linearne funkcije:
+
+Oblik: 
+
+Grafično: Prikazuju se kao prava linija.
+
+Primer: 
+
+
+
+2. Kvadratne funkcije:
+
+Oblik: 
+
+Grafično: Parabola (otvorena prema gore ili dole).
+
+Primer: 
+
+
+
+3. Kubne funkcije:
+
+Oblik: 
+
+Grafično: Oblik koji može imati više promena u smeru (krive).
+
+Primer: 
+
+
+
+4. Eksponencijalne funkcije:
+
+Oblik: 
+
+Grafično: Kriva koja se naglo povećava ili smanjuje.
+
+Primer: 
+
+
+
+5. Logaritamske funkcije:
+
+Oblik: 
+
+Grafično: Kriva koja raste, ali u opadajućem smeru kako  raste.
+
+Primer: 
+
+
+
+6. Trigonometrijske funkcije:
+
+Oblik: 
+
+Grafično: Talasaste krive koje ponavljaju obrazac.
+
+Primer: 
+
+
+
+7. Apsolutne funkcije:
+
+Oblik: 
+
+Grafično: "V" oblik sa vrhom na .
+
+Primer: 
+
+
+
+
+
+---
+
+Karakteristike funkcija:
+
+1. Domena:
+Skup svih vrednosti  koje funkcija može da prihvati. Na primer, za funkciju , domena je sve vrednosti osim .
+
+
+2. Kodomena:
+Skup svih vrednosti koje funkcija može da proizvede. Na primer, za funkciju , kodomena su svi nenegativni brojevi ().
+
+
+3. Prostornost funkcije:
+Opisuje kako funkcija raste ili opada sa promenama u . Može biti rastuća, opadajuća, ili konstantna.
+
+
+4. Preseci sa osama:
+
+Presek sa X-ose: Vrednost  za koju je .
+
+Presek sa Y-ose: Vrednost  kada je .
+
+
+
+
+
+---
+
+Operacije sa funkcijama:
+
+1. Sabiranje funkcija:
+
+Ako imamo dve funkcije  i , njihovo sabiranje je funkcija definisana kao:
+
+(f + g)(x) = f(x) + g(x)
+
+Primer: Ako je  i , onda:
+
+(f + g)(x) = (2x + 3) + (x^2 - 4) = x^2 + 2x - 1
+
+
+---
+
+2. Oduzimanje funkcija:
+
+Ako imamo dve funkcije  i , njihovo oduzimanje je funkcija definisana kao:
+
+(f - g)(x) = f(x) - g(x)
+
+Primer: Ako je  i , onda:
+
+(f - g)(x) = (3x^2 + 2x) - (x^2 + 1) = 2x^2 + 2x - 1
+
+
+---
+
+3. Množenje funkcija:
+
+Ako imamo dve funkcije  i , njihovo množenje je funkcija definisana kao:
+
+(f \cdot g)(x) = f(x) \cdot g(x)
+
+Primer: Ako je  i , onda:
+
+(f \cdot g)(x) = (x + 1)(x^2) = x^3 + x^2
+
+
+---
+
+4. Deljenje funkcija:
+
+Ako imamo dve funkcije  i , njihov odnos (deljenje) je funkcija definisana kao:
+
+\left(\frac{f}{g}\right)(x) = \frac{f(x)}{g(x)}
+
+Primer: Ako je  i , onda:
+
+\left(\frac{f}{g}\right)(x) = \frac{x^2 + 2x}{x + 1} = x
+
+
+---
+
+Zanimljivosti o funkcijama:
+
+Funkcije se koriste za modeliranje različitih fenomena u prirodi, ekonomiji, inženjeringu, i statistici.
+
+Poznavanje grafova funkcija omogućava bolju vizualizaciju ponašanja različitih fenomena (kao što je rast temperature, visina talasa, itd.).
+
+Funkcije igraju ključnu ulogu u analizi, diferencijalnim i integralnim računima, i mnogim oblastima matematike.` },
+      "Kvadratne jednačine": { opis: `Kvadratna jednačina je algebraička jednačina drugog stepena koja ima oblik:
+
+ax^2 + bx + c = 0
+
+Gde su:
+
+a, b, i c koeficijenti koji su realni brojevi (pri čemu , jer bi u tom slučaju jednačina bila linearna).
+
+ je nepoznata koju treba rešiti.
+
+
+
+---
+
+Rešavanje Kvadratnih Jednačina
+
+1. Kvadratna Formula:
+
+Kvadratnu jednačinu možemo rešiti pomoću kvadratne formule:
+
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+
+Gde:
+
+ znači da postoje dve moguće vrednosti za  (jednu sa plusom, drugu sa minusom).
+
+ je diskriminanta (označena kao ), koja određuje broj i prirodu rešenja.
+
+
+
+---
+
+2. Diskriminanta:
+
+Diskriminanta () nam pomaže da odredimo broj rešenja kvadratne jednačine:
+
+Ako je , kvadratna jednačina ima dva realna rešenja.
+
+Ako je , kvadratna jednačina ima jedno realno rešenje (rešenje je duble koren).
+
+Ako je , kvadratna jednačina nema realna rešenja, već ima dva kompleksna rešenja.
+
+
+
+---
+
+Primeri Kvadratnih Jednačina i Rešenja:
+
+Primer 1:
+
+Rešimo kvadratnu jednačinu:
+
+2x^2 - 4x - 6 = 0
+
+Korak 1: Prepoznajemo koeficijente: , , .
+
+Korak 2: Izračunavamo diskriminantu:
+
+D = b^2 - 4ac = (-4)^2 - 4(2)(-6) = 16 + 48 = 64
+
+Korak 3: Primena kvadratne formule:
+
+x = \frac{-(-4) \pm \sqrt{64}}{2(2)} = \frac{4 \pm 8}{4}
+
+Dakle, imamo dve mogućnosti:
+
+
+
+
+
+
+Rešenja:  i .
+
+
+---
+
+Primer 2:
+
+Rešimo kvadratnu jednačinu:
+
+x^2 - 6x + 9 = 0
+
+Korak 1: Prepoznajemo koeficijente: , , .
+
+Korak 2: Izračunavamo diskriminantu:
+
+D = b^2 - 4ac = (-6)^2 - 4(1)(9) = 36 - 36 = 0
+
+Korak 3: Primena kvadratne formule:
+
+x = \frac{-(-6) \pm \sqrt{0}}{2(1)} = \frac{6 \pm 0}{2} = \frac{6}{2} = 3
+
+Rešenje:  (dvostruko rešenje, tj. ).
+
+
+---
+
+Primer 3:
+
+Rešimo kvadratnu jednačinu:
+
+x^2 + 4x + 8 = 0
+
+Korak 1: Prepoznajemo koeficijente: , , .
+
+Korak 2: Izračunavamo diskriminantu:
+
+D = b^2 - 4ac = 4^2 - 4(1)(8) = 16 - 32 = -16
+
+Korak 3: Primena kvadratne formule:
+
+x = \frac{-4 \pm \sqrt{-16}}{2(1)} = \frac{-4 \pm 4i}{2}
+
+Rešenja:  i .
+
+Rešenja su kompleksna broja:  i .
+
+
+---
+
+Zaključak:
+
+Kvadratne jednačine su ključne u matematici i često se koriste u rešavanju problema u fizici, inženjeringu, ekonomiji, itd. Učenje kako da primenjujemo kvadratnu formulu i analiziramo diskriminantu omogućava nam da efikasno rešavamo kvadratne jednačine i razumemo ponašanje njihovih rešenja (bila ona realna ili kompleksna).` },
+      "Statistika": { opis: `Statistika je grana matematike koja se bavi prikupljanjem, analiziranjem, interpretacijom, prikazivanjem i organizovanjem podataka. Statistika je alat koji pomaže da se iz podataka izvuku značajni zaključci i da se tačno prognoziraju trendovi i obrasci u stvarnim situacijama.
+
+
+---
+
+Vrste statistike:
+
+1. Deskriptivna statistika (opisna statistika):
+
+Bavi se opisivanjem i sumiranjem podataka, često uz pomoć različitih vizualnih prikaza.
+
+Cilj je da se prikazuju osnovne karakteristike skupa podataka.
+
+
+
+2. Inferencijalna statistika (induktivna statistika):
+
+Bavi se donosjenjem zaključaka ili prognozama o većim skupovima podataka na osnovu uzorka.
+
+Pomoću inferencijalne statistike možemo da procenjujemo osobine populacije (npr. prosečan prihod) koristeći uzorak.
+
+
+
+
+
+---
+
+Osnovni pojmovi u statistici:
+
+1. Populacija:
+
+Skup svih mogućih objekata, pojedinaca ili vrednosti koje nas zanimaju. Na primer, populacija može biti sve osobe koje žive u određenoj zemlji.
+
+
+
+2. Uzorak:
+
+Podskup iz populacije koji se koristi za analizu i izračunavanje statističkih veličina.
+
+
+
+3. Varijabla:
+
+Osobina ili karakteristika koja može imati različite vrednosti. Na primer, visina, težina, godine.
+
+
+
+4. Statistički parametar:
+
+Broj koji opisuje osobinu cele populacije, na primer, prosečna visina svih ljudi u nekoj zemlji.
+
+
+
+5. Statistička statistika:
+
+Broj koji opisuje osobinu uzorka, na primer, prosečna visina uzorka od 100 ljudi.
+
+
+
+
+
+---
+
+Osnovne mere u statistici:
+
+1. Središnje mere:
+
+Prosečna vrednost (srednja vrednost):
+Prosečna vrednost se izračunava kao zbir svih vrednosti podeljen sa brojem vrednosti:
+
+
+\text{Prosečna vrednost} = \frac{x_1 + x_2 + \dots + x_n}{n}
+
+Primer: Ako imamo podatke: ,
+
+\text{Prosečna vrednost} = \frac{3 + 7 + 8 + 10}{4} = \frac{28}{4} = 7
+
+Medijana: Medijana je srednja vrednost u skupu podataka kada su podaci poređani u rastućem ili opadajućem redosledu.
+
+Ako je broj podataka neparan, medijana je srednji broj.
+
+Ako je broj podataka paran, medijana je prosek dva srednja broja.
+
+
+Primer: Za skup podataka , medijana je  (srednji broj).
+
+Za skup , medijana je:
+
+
+\text{Medijana} = \frac{7 + 8}{2} = 7.5
+
+Mod: Mod je vrednost koja se najčešće pojavljuje u skupu podataka. Ako nema ponavljajućih vrednosti, onda skup podataka nema mod.
+
+Primer: Za skup , mod je .
+
+
+
+---
+
+2. Mere raspršenosti:
+
+Opseg: Opseg je razlika između najveće i najmanje vrednosti u skupu podataka:
+
+
+\text{Opseg} = \text{Najveća vrednost} - \text{Najmanja vrednost}
+
+Primer: Za skup , opseg je:
+
+\text{Opseg} = 10 - 3 = 7
+
+Standardna devijacija: Standardna devijacija je mera koja pokazuje koliko su podaci raspršeni oko srednje vrednosti. Niža standardna devijacija znači da su podaci bliži proseku, dok viša standardna devijacija znači da su podaci široko raspršeni.
+
+Formula za standardnu devijaciju je:
+
+
+\sigma = \sqrt{\frac{(x_1 - \mu)^2 + (x_2 - \mu)^2 + \dots + (x_n - \mu)^2}{n}}
+
+Varijansa: Varijansa je kvadrat standardne devijacije i takođe meri raspodelu podataka.
+
+
+\text{Varijansa} = \sigma^2
+
+
+---
+
+Grafički prikazi podataka:
+
+1. Histogram: Histogram je grafički prikaz raspodele podataka u obliku stubaca, gde se visina svakog stuba koristi za prikaz broja podataka u određenom opsegu.
+
+
+2. Stablo (Box Plot): Box plot daje uvid u distribuciju podataka, pokazujući minimum, prvi kvartil (Q1), medijanu, treći kvartil (Q3) i maksimum. Ovaj grafikon takođe prikazuje potencijalne "outliers" (ekstremne vrednosti).
+
+
+3. Tačkasti grafikon (Scatter Plot): Tačkasti grafikon prikazuje odnos između dve varijable. Svaka tačka na grafiku predstavlja jedan par vrednosti iz dva skupa podataka.
+
+
+
+
+---
+
+Primena statistike:
+
+Statistika se koristi u mnogim oblastima, uključujući:
+
+Zdravstvo: za analizu i prognozu bolesti i njihovog širenja.
+
+Ekonomija: za analizu tržišta, predviđanje inflacije i rasta.
+
+Sport: za analizu performansi sportista, predviđanje rezultata.
+
+Sociologija: za analizu ponašanja i stavova ljudi u društvu.
+
+
+
+---
+
+Zaključak:
+
+Statistika nam pomaže da iz velikih skupova podataka izvučemo korisne informacije, analiziramo obrasce, prognoziramo buduće događaje, i donosimo informisane odluke. Bilo da se bavimo istraživačkim radom, poslovanjem ili svakodnevnim životom, statistika je ključna za razumevanje sveta oko nas.` },
+      "Verovatnoća": { opis: `Verovatnoća je grana matematike koja se bavi proučavanjem slučajnih događaja i njihovih mogućnosti da se dogode. U suštini, verovatnoća opisuje šansu da će se neki događaj desiti. Verovatnoća se izražava brojem između 0 i 1, gde:
+
+0 znači da se događaj sigurno neće desiti,
+
+1 znači da se događaj sigurno desiti,
+
+0.5 znači da je događaj jednako verovatan da se desi kao i da se ne desi.
+
+
+
+---
+
+Osnovni Pojmovi u Verovatnoći:
+
+1. Slučajan događaj:
+
+Slučajan događaj je neki događaj čiji ishod ne možemo unapred predvideti. Na primer, bacanje novčića, izvlačenje karte iz špila, itd.
+
+
+
+2. Prostor mogućnosti:
+
+Prostor mogućnosti (ili uzorak) je skup svih mogućih ishoda nekog slučajnog eksperimenta. Na primer, kod bacanja standardnog novčića, prostor mogućnosti je  gde je  "pismo", a  "oplatak".
+
+
+
+3. Elementarni događaj:
+
+Elementarni događaj je pojedinačni ishod iz prostora mogućnosti. Na primer, kod bacanja kocke, elementarni događaj može biti , , , itd.
+
+
+
+4. Složeni događaj:
+
+Složeni događaj je skup više elementarnih događaja. Na primer, kod bacanja dve kocke, složeni događaj može biti dobijanje sume 7.
+
+
+
+
+
+---
+
+Formula za Verovatnoću:
+
+Verovatnoća nekog događaja  može se izračunati pomoću sledeće formule:
+
+P(A) = \frac{\text{Broj povoljanih ishoda}}{\text{Broj mogućih ishoda}}
+
+Gde je:
+
+ verovatnoća događaja ,
+
+Broj povoljanih ishoda je broj mogućnosti koje favorizuju događaj ,
+
+Broj mogućih ishoda je ukupan broj mogućnosti u prostoru mogućnosti.
+
+
+
+---
+
+Vrste Verovatnoće:
+
+1. Klasična verovatnoća:
+
+Klasična verovatnoća se koristi kada su svi ishodi u prostoru mogućnosti jednako verovatni. Formula je:
+
+P(A) = \frac{\text{Broj povoljanih ishoda}}{\text{Ukupan broj mogućih ishoda}}
+
+Primer: Bacanje fer kocke. Prostor mogućnosti je , pa je broj mogućih ishoda . Ako želimo da izračunamo verovatnoću da dobijemo broj 4, broj povoljanih ishoda je , jer postoji samo jedan način da dobijemo broj 4. Dakle, verovatnoća je:
+
+P(4) = \frac{1}{6}
+
+2. Empirijska verovatnoća:
+
+Empirijska verovatnoća se bazira na istorijskim podacima ili eksperimentima. To je procena verovatnoće na osnovu posmatranih frekvencija. Formula je:
+
+P(A) = \frac{\text{Broj puta kada se A desio}}{\text{Ukupan broj eksperimenata}}
+
+Primer: Ako u 100 bacanja kocke, broj 4 se pojavio 16 puta, verovatnoća da će se dobiti broj 4 procenjuje se kao:
+
+P(4) = \frac{16}{100} = 0.16
+
+
+---
+
+Savet i Pravila za Verovatnoću:
+
+1. Zakon o verovatnoći za nepromenjive događaje:
+
+Suma verovatnoća svih mogućih ishoda mora biti 1. Ako imamo prostor mogućnosti sa  mogućnosti, verovatnoća svih mogućih događaja je:
+
+
+P(S) = 1
+
+Na primer, kod bacanja fer kocke, verovatnoća da dobijemo neki broj je , jer postoji tačno jedna od 6 mogućnosti koje se mogu dogoditi.
+
+2. Verovatnoća komplementarnog događaja:
+
+Ako je  događaj, komplementarni događaj je događaj da  ne nastane. Verovatnoća komplementarnog događaja  je:
+
+P(A^c) = 1 - P(A)
+
+Primer: Ako je verovatnoća da dobijemo broj 4 na kocki , verovatnoća da ne dobijemo broj 4 je:
+
+P(\text{ne 4}) = 1 - \frac{1}{6} = \frac{5}{6}
+
+3. Zbir verovatnoća za nezavisne događaje:
+
+Ako su dva događaja  i  nezavisni, verovatnoća da se desi barem jedan od njih (sabrana verovatnoća) je:
+
+P(A \cup B) = P(A) + P(B) - P(A \cap B)
+
+Ako su događaji nezavisni, onda je .
+
+
+---
+
+Primeri Verovatnoće:
+
+Primer 1: Bacanje Kocke
+
+Bacamo fer kocku. Prostor mogućnosti je . Koja je verovatnoća da dobijemo broj 3?
+
+Rešenje: Broj povoljanih ishoda je 1, jer postoji samo jedan broj 3 na kocki. Ukupan broj mogućih ishoda je 6 (brojevi 1, 2, 3, 4, 5, 6).
+
+P(3) = \frac{1}{6}
+
+Primer 2: Bacanje Dva Novčića
+
+Bacamo dva fer novčića. Koja je verovatnoća da dobijemo barem jedan pismo?
+
+Rešenje: Prostor mogućnosti je , gde je  pismo, a  oplatak. Događaj "barem jedno pismo" obuhvata , , i .
+
+Dakle, broj povoljanih ishoda je 3, a broj mogućih ishoda je 4. Verovatnoća je:
+
+P(\text{barem jedno pismo}) = \frac{3}{4}
+
+
+---
+
+Zaključak:
+
+Verovatnoća je temeljni alat za razumevanje i kvantifikovanje nesigurnosti u svetu oko nas. Od jednostavnih problema poput bacanja kocke do složenijih modela u ekonomiji, nauci, i svakodnevnim odlukama, verovatnoća nam omogućava da procenimo šanse i donesemo informisane odluke.` },
+      "Linearne jednačine": { opis: `Linearne jednačine su matematičke izraze u kojima je nepoznata količina (najčešće označena sa ) podignuta na prvu stepen i ne pojavljuje se u nekim složenijim oblicima (npr. kvadratni, kubni itd.). Linearne jednačine su najjednostavniji oblik algebarskih izraza i osnova su za rešavanje mnogih matematičkih problema.
+
+
+---
+
+Opšti Oblik Linearnih Jednačina:
+
+Opšti oblik linearne jednačine sa jednom nepoznatom je:
+
+ax + b = 0
+
+Gde su:
+
+ i  konstante (brojevi koji su dati u zadatku),
+
+ je nepoznata koju treba da pronađemo,
+
+ je koeficijent uz ,
+
+ je slobodni član.
+
+
+Primer:
+
+Jednačina:
+
+2x + 5 = 0
+
+U ovom primeru:
+
+,
+
+,
+
+ je nepoznata koju treba da izračunamo.
+
+
+
+---
+
+Rešavanje Linearnih Jednačina:
+
+Linearne jednačine rešavamo tako da izolujemo nepoznatu . To činimo pomoću elementarnih operacija (sabiranje, oduzimanje, množenje i deljenje).
+
+Koraci za rešavanje:
+
+1. Oduzeti ili dodati broj na obe strane jednačine kako bi se dobio član sa  na jednoj strani.
+
+
+2. Podeliti ili pomnožiti obe strane jednačine kako bi se dobio  na jednoj strani i sve ostale vrednosti na drugoj strani.
+
+
+
+
+---
+
+Rešavanje Primera:
+
+Primer 1:
+
+Reši 
+
+Korak 1: Oduzmi 5 sa obe strane:
+
+2x = -5
+
+Korak 2: Podeli obe strane sa 2:
+
+x = \frac{-5}{2}
+
+Dakle, rešenje je:
+
+x = -2.5
+
+Primer 2:
+
+Reši 
+
+Korak 1: Dodaj 7 sa obe strane:
+
+3x = 18
+
+Korak 2: Podeli obe strane sa 3:
+
+x = \frac{18}{3}
+
+Dakle, rešenje je:
+
+x = 6
+
+
+---
+
+Linearne Jednačine sa Više Nepoznatih:
+
+Kada imamo više nepoznatih, možemo imati sistem linearnih jednačina. Sistem je skup više linearnih jednačina koje sadrže iste ili različite nepoznate.
+
+Opšti oblik sistema linearnih jednačina sa dve nepoznate je:
+
+\begin{cases}
+ax + by = c \\
+dx + ey = f
+\end{cases}
+
+Rešavanje sistema se može obaviti pomoću metoda kao što su metod supstitucije, metod eliminacije ili matrični pristup.
+
+
+---
+
+Primer Sistema Linearnih Jednačina:
+
+Reši sistem:
+
+\begin{cases}
+2x + 3y = 6 \\
+4x - y = 7
+\end{cases}
+
+Korak 1: Izoluj  iz druge jednačine:
+
+Iz druge jednačine :
+
+y = 4x - 7
+
+Korak 2: Substituuj  u prvu jednačinu:
+
+2x + 3(4x - 7) = 6
+
+Raširimo i rešimo:
+
+2x + 12x - 21 = 6
+
+14x = 27 ]
+
+x = \frac{27}{14}
+
+Korak 3: Substituuj vrednost  u :
+
+y = 4\left(\frac{27}{14}\right) - 7
+
+y = \frac{108}{14} - 7 = \frac{108}{14} - \frac{98}{14} = \frac{10}{14} = \frac{5}{7} ]
+
+Dakle, rešenje sistema je:
+
+x = \frac{27}{14}, \quad y = \frac{5}{7}` },
+      "Sistem jednačina": { opis: `Sistem linearnih jednačina je skup dve ili više linearnih jednačina koje imaju zajedničke nepoznate. Rešavanje sistema znači pronalaženje vrednosti nepoznatih koje zadovoljavaju sve jednačine u sistemu.
+
+Opšti oblik sistema linearnih jednačina sa dve nepoznate je:
+
+\begin{cases}
+a_1x + b_1y = c_1 \\
+a_2x + b_2y = c_2
+\end{cases}
+
+Gde su:
+
+ i  nepoznate,
+
+ su koeficijenti,
+
+ su slobodni članovi.
+
+
+
+---
+
+Metode za rešavanje sistema linearnih jednačina:
+
+1. Metod supstitucije: U ovoj metodi, iz jedne od jednačina izolujemo jednu nepoznatu i zatim tu vrednost zamenjujemo u drugu jednačinu.
+
+
+2. Metod eliminacije: U ovoj metodi, manipulacijom sa jednačinama (množenje sa određenim brojem), trudimo se da eliminišemo jednu od nepoznatih i dobijemo jednostavniju jednačinu.
+
+
+3. Matrična metoda (Kramerova metoda): Ova metoda koristi matricu koeficijenata sistema i matrice rešavanja. Pogodna je za veće sisteme.
+
+
+
+
+---
+
+Primer 1: Metod supstitucije
+
+Reši sistem:
+
+\begin{cases}
+2x + 3y = 6 \\
+4x - y = 7
+\end{cases}
+
+Korak 1: Izoluj  iz druge jednačine:
+
+Iz , dobijamo:
+
+y = 4x - 7
+
+Korak 2: Substituuj  u prvu jednačinu:
+
+2x + 3(4x - 7) = 6
+
+2x + 12x - 21 = 6 ]
+
+14x - 21 = 6
+
+14x = 27 ]
+
+x = \frac{27}{14}
+
+Korak 3: Substituuj  u :
+
+y = 4\left(\frac{27}{14}\right) - 7
+
+y = \frac{108}{14} - 7 = \frac{108}{14} - \frac{98}{14} = \frac{10}{14} = \frac{5}{7} ]
+
+Dakle, rešenje sistema je:
+
+x = \frac{27}{14}, \quad y = \frac{5}{7}
+
+
+---
+
+Primer 2: Metod eliminacije
+
+Reši sistem:
+
+\begin{cases}
+3x + 4y = 10 \\
+5x - 2y = 8
+\end{cases}
+
+Korak 1: Pomnoži obe jednačine tako da koeficijenti  postanu suprotnog znaka:
+
+Pomnožimo prvu jednačinu sa 2 i drugu sa 4:
+
+\begin{cases}
+6x + 8y = 20 \\
+20x - 8y = 32
+\end{cases}
+
+Korak 2: Saberi obe jednačine da eliminarišemo :
+
+(6x + 8y) + (20x - 8y) = 20 + 32
+
+26x = 52 ]
+
+x = \frac{52}{26} = 2
+
+Korak 3: Substituuj  u jednu od originalnih jednačina:
+
+U prvu jednačinu , zamenjujemo :
+
+3(2) + 4y = 10
+
+6 + 4y = 10 ]
+
+4y = 4
+
+y = 1 ]
+
+Dakle, rešenje sistema je:
+
+x = 2, \quad y = 1
+
+
+---
+
+Primer 3: Metod Kramera (Matrični pristup)
+
+Reši sistem:
+
+\begin{cases}
+x + 2y = 5 \\
+3x + 4y = 6
+\end{cases}
+
+Korak 1: Napiši koeficijentnu matricu  i matricu nepoznatih :
+
+A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}, \quad X = \begin{pmatrix} x \\ y \end{pmatrix}, \quad B = \begin{pmatrix} 5 \\ 6 \end{pmatrix}
+
+Korak 2: Izračunaj determinantu matrice :
+
+\text{det}(A) = (1)(4) - (2)(3) = 4 - 6 = -2
+
+Korak 3: Izračunaj matricu  i :
+
+Zamenjujemo odgovarajuće kolone u matrici  sa matricom .
+
+A_x = \begin{pmatrix} 5 & 2 \\ 6 & 4 \end{pmatrix}, \quad A_y = \begin{pmatrix} 1 & 5 \\ 3 & 6 \end{pmatrix}
+
+Izračunavamo determinante:
+
+\text{det}(A_x) = (5)(4) - (2)(6) = 20 - 12 = 8
+
+\text{det}(A_y) = (1)(6) - (5)(3) = 6 - 15 = -9
+
+Korak 4: Izračunaj  i :
+
+x = \frac{\text{det}(A_x)}{\text{det}(A)} = \frac{8}{-2} = -4
+
+y = \frac{\text{det}(A_y)}{\text{det}(A)} = \frac{-9}{-2} = 4.5 ]
+
+Dakle, rešenje sistema je:
+
+x = -4, \quad y = 4.5` },
+      "Grafici funkcija": { opis: `Grafik funkcije je vizuelni prikaz svih tačaka koje zadovoljavaju određenu funkciju. Svaka tačka na grafiku predstavlja par  gde je  ulaz (nezavisna promenljiva), a  izlaz (zavisna promenljiva). Grafici funkcija pomažu da bolje razumemo kako funkcija reaguje na promene u ulaznim vrednostima.
+
+
+---
+
+Osnovni Terminologija:
+
+Funkcija je pravilo koje svakom broju  dodeljuje tačno jedan broj . Funkcija se često zapisuje kao , gde je  izraz koji određuje vrednost .
+
+Graf funkcije je skup svih tačaka , gde su  i  brojevi koji zadovoljavaju funkciju.
+
+Osovine koordinatnog sistema:
+
+X-osovina (horizontalna): predstavlja ulazne vrednosti .
+
+Y-osovina (vertikalna): predstavlja izlazne vrednosti  ili .
+
+
+
+
+---
+
+Vrste funkcija i njihovi grafici:
+
+1. Linearne funkcije:
+
+Opšti oblik: 
+
+Ovo je funkcija koja daje pravu liniju u koordinatnom sistemu. Koeficijent  određuje nagib linije, a  je presečna tačka sa y-osom.
+
+
+Primer: 
+
+Grafik ove funkcije je prava linija koja prolazi kroz tačku  i ima nagib 2.
+
+
+2. Kvadratne funkcije:
+
+Opšti oblik: 
+
+Ovo je funkcija koja daje parabolu. Ako je , parabola se otvara prema gore; ako je , otvara se prema dole.
+
+
+Primer: 
+
+Grafik ove funkcije je parabola koja se seče sa x-osom u tačkama  i , a preseče y-osu u tački .
+
+
+3. Apsolutne funkcije:
+
+Opšti oblik: 
+
+Ove funkcije daju v-oblika grafike. Apsolutna vrednost  čini da funkcija uvek ima pozitivne vrednosti.
+
+
+Primer: 
+
+Grafik ove funkcije je v-oblika sa vrhom u tački .
+
+
+4. Eksponencijalne funkcije:
+
+Opšti oblik: 
+
+Ovo je funkcija koja daje eksponencijalni rast ili opadanje, zavisno od baze . Ako je , funkcija raste; ako je , funkcija opada.
+
+
+Primer: 
+
+Grafik ove funkcije je zakrivljen i raste vrlo brzo kako  raste.
+
+
+5. Logaritamske funkcije:
+
+Opšti oblik: 
+
+Ovo je funkcija koja daje grafik sa asimptotom. Asimptota je linija prema kojoj se funkcija približava, ali je nikada ne dostiže.
+
+
+Primer: 
+
+Grafik ove funkcije raste sporo kako  raste, a ima vertikalnu asimptotu na .
+
+
+6. Trigonometrijske funkcije:
+
+Primeri: , 
+
+Ove funkcije daju talasaste grafike sa periodičnim promenama. Funkcija  ima period od , a  je pomerena u odnosu na  za .
+
+
+Primer: 
+
+Grafik ove funkcije osciluje između -1 i 1, sa periodičnim ponavljanjem.
+
+
+
+
+---
+
+Kako nacrtati graf funkcije:
+
+1. Definiši funkciju: Odredi funkciju  koju želiš da grafički prikažeš.
+
+
+2. Odredi nekoliko tačaka: Započni sa određivanjem vrednosti  za nekoliko vrednosti . Na primer, izračunaj  za , i tako dalje.
+
+
+3. Nacrtaj tačke na grafiku: Za svaku vrednost , nacrtaj tačku  na koordinatnom sistemu.
+
+
+4. Poveži tačke: Poveži tačke kako bi formirao graf funkcije. U slučaju linearne funkcije, poveži tačke pravom linijom; u slučaju kvadratne funkcije, formiraćeš parabolu, itd.
+
+
+
+
+---
+
+Primer Grafa Linearne Funkcije:
+
+Funkcija: 
+
+1. Nacrtaj koordinatni sistem sa osovinama  i .
+
+
+2. Za , , pa imamo tačku .
+
+
+3. Za , , pa imamo tačku .
+
+
+4. Za , , pa imamo tačku .
+
+
+5. Poveži ove tačke pravom linijom, i to je graf funkcije .` },
+      "Logika": { opis: `Logika je grana filozofije i matematike koja se bavi pravilima ispravnog razmišljanja, formiranjem argumenata i donošenjem zaključaka. U matematici i računarstvu, logika je ključna za razumevanje procesa donošenja odluka, kako u algoritmima, tako i u svakodnevnom životu.
+
+Logika koristi razne logičke operacije za povezivanje iskaza i donošenje zaključaka. Osnovni gradivni blokovi logike su iskazi (ili propozicije), koji su tvrdnje koje mogu biti tačne ili netačne.
+
+
+---
+
+Osnovni pojmovi u logici:
+
+1. Iskaz (propozicija) – To je tvrdnja koja može biti tačna ili netačna. Na primer:
+
+"3 je paran broj" (netačno)
+
+"5 je prost broj" (tačno)
+
+
+
+2. Logičke operacije – Operacije koje se koriste za kombinovanje iskaza:
+
+Negacija (NOT): Ova operacija menja istinitost iskaza. Ako je iskaz  tačan, onda je negacija  netačna, i obrnuto.
+
+Primer: Ako je : "Danas je sunčano", onda je : "Danas nije sunčano".
+
+
+Konjunkcija (AND): Ova operacija povezuje dva iskaza, a rezultat je tačan samo kada su oba iskaza tačna.
+
+Primer: : "Danas je sunčano", : "Idem na trčanje".  znači "Danas je sunčano i idem na trčanje".
+
+Rezultat je tačan samo ako su oba iskaza tačna.
+
+
+Disjunkcija (OR): Ova operacija povezuje dva iskaza, a rezultat je tačan ako je barem jedan iskaz tačan.
+
+Primer: : "Danas je sunčano", : "Danas pada kiša".  znači "Danas je sunčano ili pada kiša".
+
+Rezultat je tačan ako je barem jedan od iskaza tačan.
+
+
+Implikacija (IF...THEN): Ova operacija povezuje dva iskaza u obliku "ako...onda". Ako je prvi iskaz tačan, drugi iskaz mora biti tačan da bi cela implikacija bila tačna.
+
+Primer: : "Ako pada kiša", : "Završavam trening". Implikacija  znači "Ako pada kiša, završavam trening".
+
+Ova implikacija je netačna samo ako je prvi iskaz tačan, a drugi netačan.
+
+
+Bicondicional (IF AND ONLY IF): Ova operacija povezuje dva iskaza i znači da su oba iskaza tačna ili oba netačna.
+
+Primer: : "Ako padne kiša, nosim kišobran", : "Nosim kišobran". Bicondicional  znači "Nosim kišobran ako i samo ako padne kiša".
+
+
+
+
+
+
+---
+
+Istinitosne tabele:
+
+Za svaku logičku operaciju možemo napraviti istinitosnu tabelu, koja prikazuje sve moguće kombinacije istinitosti iskaza i rezultat operacije.
+
+1. Negacija (NOT):
+
+2. Konjunkcija (AND):
+
+3. Disjunkcija (OR):
+
+4. Implikacija (IF...THEN):
+
+5. Bicondicional (IF AND ONLY IF):
+
+
+---
+
+Logičke konsekvence i argumenti:
+
+U logici, argument je niz iskaza u kojem neki iskazi podržavaju ili opravdavaju druge iskaze (zaključke). Ako su svi premisi (pretpostavke) tačne, onda je zaključak takođe tačan, pod uslovom da je argument ispravan.
+
+Validan argument je onaj u kojem istinitost premisa vodi do istinitosti zaključka.
+
+Nevalidan argument je onaj u kojem nije obavezno da tačnost premisa znači i tačnost zaključka.
+
+
+Primer validnog argumenta:
+
+Premisa 1: "Ako pada kiša, uzeću kišobran."
+
+Premisa 2: "Pada kiša."
+
+Zaključak: "Uzeću kišobran."
+
+
+
+---
+
+Upotreba logike:
+
+Logika je osnova za mnoge discipline, uključujući:
+
+1. Matematiku: Logičke operacije se koriste za rešavanje matematičkih problema, u dokazima, teorijama skupova i mnogo drugih područja.
+
+
+2. Računarske nauke: Logika je ključna u dizajnu računarskih sistema, programiranju (logičke operacije u kodu), algoritmima, digitalnim kolima i veštačkoj inteligenciji.
+
+
+3. Filozofija: Filozofi koriste logiku kako bi analizirali argumente, razjasnili pojmove i rešavali etičke dileme.` },
+      "Kvadratne funkcije": { opis: `Kvadratne funkcije su funkcije koje se mogu zapisati u obliku:
+
+f(x) = ax^2 + bx + c
+
+Gde su , , i  konstantni brojevi, a . Kvadratne funkcije su tako nazvane jer sadrže promenljivu  podignutu na drugi stepen ().
+
+
+---
+
+Osnovne karakteristike kvadratne funkcije:
+
+1. Graf kvadratne funkcije je parabola.
+
+Ako je , parabola je okrenuta prema gore.
+
+Ako je , parabola je okrenuta prema dole.
+
+
+
+2. Vrh parabole je tačka u kojoj parabola menja svoj pravac (maksimum ili minimum). Vrh parabole je tačka sa koordinatama:
+
+
+
+x_{\text{v}} = \frac{-b}{2a}
+
+y_{\text{v}} = f\left(\frac{-b}{2a}\right)
+
+3. Ose simetrije je vertikalna linija koja deli parabolu na dva simetrična dela. Ose simetrije se nalazi u , što znači da je:
+
+
+
+x = \frac{-b}{2a}
+
+4. Koreni kvadratne funkcije (rešenja kvadratne jednačine) su vrednosti  za koje je , tj. kad kvadratna funkcija seče -osu. Korene kvadratne funkcije nalazimo pomoću kvadratne formule:
+
+
+
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+
+Gde je  diskriminanta:
+
+Ako je , kvadratna funkcija ima dva različita realna korena.
+
+Ako je , kvadratna funkcija ima jedan realan koren (parabola dodiruje osu ).
+
+Ako je , kvadratna funkcija nema realne korene (parabola ne seče osu ).
+
+
+
+---
+
+Primer kvadratne funkcije:
+
+Razmotrimo funkciju:
+
+f(x) = 2x^2 - 4x + 1
+
+Koeficijenti su , , i .
+
+
+Vrh parabole:
+
+x_{\text{v}} = \frac{-(-4)}{2(2)} = \frac{4}{4} = 1
+
+y_{\text{v}} = f(1) = 2(1)^2 - 4(1) + 1 = 2 - 4 + 1 = -1
+
+Osa simetrije je linija , jer je .
+
+Koreni: Koristimo kvadratnu formulu:
+
+\Delta = (-4)^2 - 4(2)(1) = 16 - 8 = 8
+
+x = \frac{-(-4) \pm \sqrt{8}}{2(2)} = \frac{4 \pm \sqrt{8}}{4} = \frac{4 \pm 2\sqrt{2}}{4}
+
+x_1 = \frac{4 + 2\sqrt{2}}{4} = 1 + \frac{\sqrt{2}}{2}, \quad x_2 = \frac{4 - 2\sqrt{2}}{4} = 1 - \frac{\sqrt{2}}{2}
+
+
+---
+
+Graf kvadratne funkcije:
+
+Graf kvadratne funkcije je parabola koja može imati različite oblike, zavisno od vrednosti , , i . Na osnovu tačaka kao što su vrh i koreni, možemo crtati graf funkcije. Graf može biti:
+
+U obliku „” (ako je ).
+
+U obliku „” (ako je ).` },
+      "Polinomi višeg stepena": { opis: `Polinomi višeg stepena su matematički izrazi koji sadrže promenljive podignute na stepen veći od 2. Opšti oblik polinoma n-tog stepena je:
+
+P(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0
+
+Gde je:
+
+ su konstantni koeficijenti,
+
+ je stepen polinoma (npr., za kvadratni polinom , za kubni , itd.),
+
+ (ako bi , onda bi polinom bio nižeg stepena).
+
+
+
+---
+
+Osnovne karakteristike polinoma višeg stepena:
+
+1. Stepen polinoma je najveći eksponent promenljive . Na primer, u polinomu , stepen je 5 jer je najveći eksponent .
+
+
+2. Koeficijenti polinoma su brojevi koji stoje ispred odgovarajućih stepenova promenljive . U prethodnom primeru, koeficijenti su:
+
+,
+
+,
+
+,
+
+.
+
+
+
+3. Vrh (maksimum ili minimum): Kao i kod kvadratnih funkcija, polinomi višeg stepena mogu imati lokalne vrhove (maksimume ili minimume). Da bismo ih našli, koristimo izvod funkcije i rešavamo ga za nulu da bismo našli kritične tačke.
+
+
+4. Znakovi polinoma: Polinom može biti rastući ili opadajući u zavisnosti od stepena i koeficijenata.
+
+
+
+
+---
+
+Primeri polinoma višeg stepena:
+
+1. Kubni polinom (n = 3):
+
+P(x) = 2x^3 - 3x^2 + x - 5
+
+Stepen ovog polinoma je 3, jer je najveći eksponent . Da bismo analizirali ovaj polinom, možemo pronaći njegove korene (rešenja) pomoću različitih metoda, kao što su faktorizacija ili numeričke metode.
+
+2. Polinom četvrtog stepena (n = 4):
+
+P(x) = x^4 - 2x^3 + 3x^2 - 4x + 5
+
+Ovaj polinom ima stepen 4, jer je najveći eksponent .
+
+3. Polinom pete stepena (n = 5):
+
+P(x) = x^5 - 6x^4 + 11x^3 - 6x^2
+
+Stepen ovog polinoma je 5, jer je najveći eksponent .
+
+
+---
+
+Osnovne operacije sa polinomima višeg stepena:
+
+1. Sabiranje i oduzimanje polinoma: Da bismo sabrali ili oduzeli polinome, jednostavno sabiramo ili oduzimamo koeficijente za odgovarajuće stepenove .
+
+Na primer:
+
+
+
+P(x) = (3x^4 - 2x^2 + x + 4) + (x^4 + 4x^3 - 7x + 3)
+
+P(x) = (3x^4 + x^4) + 4x^3 + (-2x^2) + (x - 7x) + (4 + 3)
+
+P(x) = 4x^4 + 4x^3 - 2x^2 - 6x + 7 ]
+
+2. Množenje polinoma: Množenje polinoma podrazumeva množenje svakog člana jednog polinoma sa svakim članom drugog polinoma, a zatim kombinovanje sličnih članova.
+
+Na primer:
+
+
+
+(x + 1)(x^2 - x + 3)
+
+x(x^2 - x + 3) = x^3 - x^2 + 3x
+
+1(x^2 - x + 3) = x^2 - x + 3 ] Sada saberemo rezultate:
+
+P(x) = x^3 - x^2 + 3x + x^2 - x + 3
+
+P(x) = x^3 + 2x + 3 ]
+
+3. Deljenje polinoma: Deljenje polinoma može biti jednostavno kada delimo polinom sa monomom. Za deljenje sa višim stepenima koristi se polinomijalno deljenje.
+
+
+
+
+---
+
+Kako analizirati polinome višeg stepena:
+
+1. Koreni polinoma: Koreni polinoma su tačke gde funkcija prelazi osu , tj. gde je . Možemo ih pronaći faktorizacijom polinoma, numeričkim metodama ili pomoću kvadratnih formula za niže stepene.
+
+
+2. Izvod: Za polinome višeg stepena, izvod nam pomaže da analiziramo ponašanje funkcije – da li raste ili opada u određenim intervalima i da li ima lokalne ekstreme (maksimume ili minimume).
+
+Izvod kvadratnog polinoma  je:
+
+
+
+P'(x) = 2ax + b
+
+3. Raspon vrednosti: Ako analiziramo graf polinoma višeg stepena, možemo utvrditi u kojim intervalima je funkcija rastuća, opadajuća ili ima ekstremne vrednosti.` },
+      "Trigonometrija": { opis: `Trigonometrija je grana matematike koja se bavi proučavanjem odnosa između uglova i stranica u trouglovima, posebno pravouglim trougovima. Trigonometrijski izrazi i funkcije su od ključne važnosti u geometriji, fizici, inženjeringu i mnogim drugim disciplinama.
+
+
+---
+
+Osnovne trigonometrijske funkcije:
+
+U pravouglom trouglu, gde su , , i  stranice, a  je jedan od uglova (osim pravog ugla od 90°), osnovne trigonometrijske funkcije su definisane kao:
+
+1. Sinus (sin):
+
+
+
+\sin(\theta) = \frac{\text{suprotna stranica}}{\text{hipotenuza}}
+
+2. Kosinus (cos):
+
+
+
+\cos(\theta) = \frac{\text{priležna stranica}}{\text{hipotenuza}}
+
+3. Tangens (tan):
+
+
+
+\tan(\theta) = \frac{\text{suprotna stranica}}{\text{priležna stranica}}
+
+4. Kosekans (csc):
+
+
+
+\csc(\theta) = \frac{1}{\sin(\theta)} = \frac{\text{hipotenuza}}{\text{suprotna stranica}}
+
+5. Sekans (sec):
+
+
+
+\sec(\theta) = \frac{1}{\cos(\theta)} = \frac{\text{hipotenuza}}{\text{priležna stranica}}
+
+6. Kotangens (cot):
+
+
+
+\cot(\theta) = \frac{1}{\tan(\theta)} = \frac{\text{priležna stranica}}{\text{suprotna stranica}}
+
+
+---
+
+Pitagorina teorema:
+
+Pitagorina teorema je osnova za mnoge trigonometrijske proračune. U pravouglom trouglu, gde su  i  katete, a  je hipotenuza, važi:
+
+a^2 + b^2 = c^2
+
+Ova teorema povezuje dužine stranica pravouglog trougla i koristi se za izračunavanje nepoznatih stranica kada su poznate dve stranice.
+
+
+---
+
+Trigonometrijski identiteti:
+
+1. Osnovni identitet:
+
+
+
+\sin^2(\theta) + \cos^2(\theta) = 1
+
+2. Identiteti za tangens i kotangens:
+
+
+
+\tan(\theta) = \frac{\sin(\theta)}{\cos(\theta)}
+
+\cot(\theta) = \frac{1}{\tan(\theta)} = \frac{\cos(\theta)}{\sin(\theta)} ]
+
+3. Suma i razlika uglova: Za  i  ugla, trigonometrijski identiteti su:
+
+Sinus:
+
+
+
+
+\sin(\alpha + \beta) = \sin(\alpha)\cos(\beta) + \cos(\alpha)\sin(\beta)
+
+\sin(\alpha - \beta) = \sin(\alpha)\cos(\beta) - \cos(\alpha)\sin(\beta)
+
+]
+
+Kosinus:
+
+
+\cos(\alpha + \beta) = \cos(\alpha)\cos(\beta) - \sin(\alpha)\sin(\beta)
+
+\cos(\alpha - \beta) = \cos(\alpha)\cos(\beta) + \sin(\alpha)\sin(\beta)
+
+]
+
+4. Duple ugao:
+
+Sinus duplog ugla:
+
+
+
+
+\sin(2\theta) = 2\sin(\theta)\cos(\theta)
+
+\cos(2\theta) = \cos^2(\theta) - \sin^2(\theta)
+
+\tan(2\theta) = \frac{2\tan(\theta)}{1 - \tan^2(\theta)}
+
+
+---
+
+Jedinični krug (trigonometrijski krug):
+
+Jedinični krug je krug sa poluprečnikom 1, čiji je centar u koordinatnom sistemu na tački . Trigonometrijske funkcije mogu se vizualizovati na ovom krugu. Ako je tačka  na jedinici kruga, onda su koordinate povezane sa trigonometrijskim funkcijama kao:
+
+,
+
+.
+
+
+Za svaki ugao , tačka na jediničnom krugu daje vrednosti trigonometrijskih funkcija, što nam omogućava da povežemo trigonometrijske funkcije sa geometrijskim osobinama kruga.
+
+
+---
+
+Primenjena trigonometrija:
+
+Trigonometrija se koristi u mnogim stvarnim situacijama, uključujući:
+
+Geometrija: Proračunavanje dužina stranica i uglova u trouglovima.
+
+Fizika: Analiza kretanja, talasa, i vibracija.
+
+Inženjering: Dizajn i analiza struktura, elektronika, navigacija.
+
+Astronomija: Izračunavanje udaljenosti do zvezda i planeta.
+
+Navigacija: Korisna je za navigaciju na moru i u avionima.
+
+
+
+---
+
+Primer:
+
+Za pravougli trougao sa katetama  i , hajde da izračunamo hipotenuzu , koristeći Pitagorinu teoremu:
+
+c^2 = a^2 + b^2
+
+c^2 = 3^2 + 4^2 = 9 + 16 = 25 ]
+
+c = \sqrt{25} = 5
+
+Takođe, možemo izračunati trigonometrijske funkcije za ugao  (gde je  ugao između katete  i hipotenuze):
+
+\sin(\theta) = \frac{a}{c} = \frac{3}{5} = 0.6
+
+\cos(\theta) = \frac{b}{c} = \frac{4}{5} = 0.8 ]
+
+\tan(\theta) = \frac{a}{b} = \frac{3}{4} = 0.75` },
+      "Matematička indukcija": { opis: `Matematička indukcija je metoda dokaza koja se koristi za dokazivanje da je neka tvrdnja tačna za sve prirodne brojeve (ili za sve brojeve koji zadovoljavaju određeni uslov). Indukcija se koristi u mnogim granama matematike, posebno u teoriji brojeva, kombinatorici, i matematičkoj logici.
+
+Metoda indukcije zasniva se na dva osnovna koraka:
+
+1. Osnovni korak (baza indukcije): Dokazivanje da tvrdnja važi za prvi broj (najčešće ).
+
+
+2. Indukcioni korak: Pretpostavka da tvrdnja važi za neki broj , a zatim dokazivanje da iz toga sledi da tvrdnja važi i za broj .
+
+
+
+Koraci matematičke indukcije:
+
+1. Osnovni korak: Dokazujemo da tvrdnja važi za  (ili neki drugi početni broj, ako je to potrebno).
+
+
+2. Indukcijska pretpostavka: Pretpostavljamo da tvrdnja važi za , gde je  neki proizvoljan prirodni broj.
+
+
+3. Indukcioni korak: Na osnovu pretpostavke da tvrdnja važi za , dokazujemo da tvrdnja važi i za .
+
+
+
+Ako su oba koraka ispunjena, zaključujemo da tvrdnja važi za sve prirodne brojeve.
+
+Primer 1:
+
+Dokazivanje da je suma prvih  brojeva prirodnih brojeva jednaka:
+
+S_n = 1 + 2 + 3 + \dots + n = \frac{n(n + 1)}{2}
+
+1. Osnovni korak (baza indukcije):
+
+Za , suma prvih  brojeva je . Takođe, desna strana formule je:
+
+\frac{1(1 + 1)}{2} = \frac{1 \times 2}{2} = 1
+
+2. Indukcijska pretpostavka:
+
+Pretpostavljamo da tvrdnja važi za , tj.:
+
+S_k = 1 + 2 + 3 + \dots + k = \frac{k(k + 1)}{2}
+
+3. Indukcioni korak:
+
+Sada treba dokazati da tvrdnja važi i za . Za , suma postaje:
+
+S_{k+1} = 1 + 2 + 3 + \dots + k + (k + 1)
+
+S_{k+1} = \frac{k(k + 1)}{2} + (k + 1)
+
+S_{k+1} = \frac{k(k + 1)}{2} + \frac{2(k + 1)}{2} = \frac{k(k + 1) + 2(k + 1)}{2} = \frac{(k + 1)(k + 2)}{2}
+
+S_{k+1} = \frac{(k + 1)(k + 2)}{2}
+
+Dakle, indukcija je uspešna i tvrdnja je dokazana za sve prirodne brojeve .
+
+
+---
+
+Primer 2:
+
+Dokazivanje da je  za sve .
+
+1. Osnovni korak (baza indukcije):
+
+Za , imamo:
+
+2^4 = 16 \quad \text{i} \quad 4^2 = 16
+
+2. Indukcijska pretpostavka:
+
+Pretpostavljamo da tvrdnja važi za , tj.:
+
+2^k \geq k^2
+
+3. Indukcioni korak:
+
+Sada treba dokazati da tvrdnja važi i za , tj. da je:
+
+2^{k+1} \geq (k + 1)^2
+
+2^{k+1} = 2 \cdot 2^k \geq 2 \cdot k^2
+
+(k + 1)^2 = k^2 + 2k + 1
+
+2 \cdot k^2 \geq k^2 + 2k + 1
+
+k^2 \geq 2k + 1
+
+Dakle, tvrdnja važi za , i indukcija je uspešna.` }
+    };
+
+    function prikaziRazrede() {
+      const razredi = document.getElementById("razredi");
+      razredi.innerHTML = "";
+      for (let razred in podaci) {
+        const div = document.createElement("div");
+        div.className = "razred";
+        div.innerText = razred;
+        div.onclick = () => prikaziOblasti(razred);
+        razredi.appendChild(div);
+      }
+    }
+
+    function prikaziOblasti(razred) {
+      document.getElementById("razredi").style.display = "none";
+      const oblastiDiv = document.getElementById("oblasti");
+      oblastiDiv.innerHTML = "";
+      podaci[razred].forEach(oblast => {
+        const div = document.createElement("div");
+        div.className = "oblast";
+        div.innerText = oblast;
+        div.onclick = () => prikaziOpis(oblast);
+        oblastiDiv.appendChild(div);
+      });
+      oblastiDiv.style.display = "block";
+      document.getElementById("nazad").style.display = "block";
+    }
+
+    function prikaziOpis(oblast) {
+      const opisDiv = document.getElementById("opis");
+      opisDiv.innerText = primeri[oblast]?.opis || "Objašnjenje još nije dostupno.";
+      opisDiv.style.display = "block";
+    }
+
+    function vratiNazad() {
+      document.getElementById("oblasti").style.display = "none";
+      document.getElementById("opis").style.display = "none";
+      document.getElementById("nazad").style.display = "none";
+      prikaziRazrede();
+      document.getElementById("razredi").style.display = "block";
+    }
+
+    prikaziRazrede();
+  </script></body>
+</html>
